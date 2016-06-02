@@ -18,7 +18,7 @@
 			<tr>
 				<td>{{movie.Title}}</td> <!-- title -->
 				<td>{{movie.Year}}</td> <!-- year -->
-				<td ng-repeat='actor in movie.Actors'>{{actor}}</td> <!-- main actors -->
+				<td ng-repeat='actor in movie.Actors'><span>{{actor}}</span></td> <!-- main actors -->
 				<td>{{movie.Rating}}</td> <!-- rating -->
 	 			<td><input type="checkbox" name="" value="" ng-checked='{{movie.Watched}}'></td> <!-- watched checkbox -->
 			</tr>
