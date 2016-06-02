@@ -5,7 +5,7 @@ angular.module('app')
       getMovie(movieTitle) {
         movieTitle.replace(/\ /g,'+');
         return $http
-          .get(`${OMDB_URL}/t=${movieTitle}`)
+          .get(`${OMDB_URL}t=${movieTitle}`)
           .then(res => res.data)
       }
     }
@@ -14,13 +14,11 @@ angular.module('app')
     {
       addMovie(movieObject) {
         return $http
-          .post(`${FB_URL}/movies.json`, movieObject)
-      }
-    },
-    {
+          .post(`${FB_URL}.json`, movieObject)
+      },
       getMovies() {
         return $http
-          .get(`${FB_URL}/movies.json`)
+          .get(`${FB_URL}.json`)
           .then(res => res.data)
       }
     }
