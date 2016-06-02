@@ -3,10 +3,12 @@ angular.module('app')
     $routeProvider
       .when('/', {
         templateUrl: 'partials/view.html',
-        controller: ''
+        controller: 'ViewCtrl',
+        controllerAs: 'view',
       })
       .when('/add', {
         templateUrl: 'partials/add.html',
-        controller: '',
+        controller: 'AddCtrl',
+        controllerAs: 'add'
       })
 })
