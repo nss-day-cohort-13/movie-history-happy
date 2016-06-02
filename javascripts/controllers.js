@@ -1,25 +1,20 @@
 angular.module("app")
-  .controller("ViewCtrl", function(firebaseFactory, $scope) {
+  .controller("ViewCtrl", function(firebaseFactory) {
     const view = this;
     view.movies = firebaseFactory.getMovies();
-
-    $scope.$on("$locationChangeStart", () =>
-      view.movies = firebaseFactory.getMovies());
   })
 
   .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {
     const add = this;
     add.addMovie = () => {
-      const omdbData = omdbFactory.getMovie(add.title);
-
-      firebaseFactory.addMovie({
-        Title: omdbData.Title,
-        Year: omdbData.Year,
-        Actors: omdbData.Actors.split(", "),
-        Rating: Math.round(omdbData.imdbRating / 2),
-        Watched: false
-      });
-
-      $location.path("/");
+      omdbFactory.getMovie(add.movieTitle)
+        .then(data => firebaseFactory.addMovie({
+          Title: data.Title,
+          Year: data.Year,
+          Actors: data.Actors.split(", "),
+          Rating: Math.round(data.imdbRating / 2),
+          Watched: false
+        }))
+        .then($location.path("/"));
     };
   });
