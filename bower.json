@@ -1,0 +1,14 @@
+{
+  "name": "movie-history-happy",
+  "homepage": "https://github.com/nss-day-cohort-13/movie-history-happy",
+  "authors": [
+    "pbhowelljr <pbhowelljr@gmail.com>"
+  ],
+  "description": "nss exercise",
+  "main": "index.html",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.5.6",
+    "angular-route": "^1.5.6"
+  }
+}
