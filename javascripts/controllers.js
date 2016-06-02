@@ -1,7 +1,7 @@
 angular.module("app")
   .controller("ViewCtrl", function(firebaseFactory) {
     const view = this;
-    view.movies = firebaseFactory.getMovies();
+    firebaseFactory.getMovies(movies => view.movies = movies);
   })
 
   .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {
@@ -14,7 +14,6 @@ angular.module("app")
           Actors: data.Actors.split(", "),
           Rating: Math.round(data.imdbRating / 2),
           Watched: false
-        }))
-        .then($location.path("/"));
+        }).then(() => $location.path("/")));
     };
   });
