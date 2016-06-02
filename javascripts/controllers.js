@@ -7,16 +7,16 @@ angular.module("app")
       view.movies = firebaseFactory.getMovies());
   })
 
-  .controller("AddCtrl", function(odbcFactory, firebaseFactory, $location) {
+  .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {
     const add = this;
     add.addMovie = title => {
-      const odbcData = odbcFactory.getMovieData(title);
+      const omdbData = omdbFactory.getMovieData(title);
 
       firebaseFactory.addMovie({
-        Title: odbcData.Title,
-        Year: odbcData.Year,
-        Actors: odbcData.Actors.split(", "),
-        Rating: Math.round(odbcData.imdbRating / 2),
+        Title: omdbData.Title,
+        Year: omdbData.Year,
+        Actors: omdbData.Actors.split(", "),
+        Rating: Math.round(omdbData.imdbRating / 2),
         Watched: false
       });
 
