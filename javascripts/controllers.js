@@ -10,7 +10,7 @@ angular.module("app")
   .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {
     const add = this;
     add.addMovie = title => {
-      const omdbData = omdbFactory.getMovieData(title);
+      const omdbData = omdbFactory.getMovie(title);
 
       firebaseFactory.addMovie({
         Title: omdbData.Title,
