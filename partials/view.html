@@ -14,11 +14,11 @@
 				<th>Watched?</th>
 			</tr>
 		</thead>
-		<tbody ng-repeat='movie in view.movies'>
-			<tr>
+		<tbody>
+			<tr ng-repeat='movie in view.movies'>
 				<td>{{movie.Title}}</td> <!-- title -->
 				<td>{{movie.Year}}</td> <!-- year -->
-				<td ng-repeat='actor in movie.Actors'><span>{{actor}}</span></td> <!-- main actors -->
+				<td><span ng-repeat='actor in movie.Actors'>{{actor}}</span></td> <!-- main actors -->
 				<td>{{movie.Rating}}</td> <!-- rating -->
 	 			<td><input type="checkbox" name="" value="" ng-checked='{{movie.Watched}}'></td> <!-- watched checkbox -->
 			</tr>
