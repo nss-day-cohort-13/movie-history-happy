@@ -12,7 +12,6 @@ angular.module('app')
     }
   ))
 
-
   .factory('firebaseFactory', () => {
     const db = firebase.database();
     const listeners = {};
@@ -25,6 +24,10 @@ angular.module('app')
         const newKey = db.ref('movies').push().key;
         db.ref('movies').update({ [newKey]: movieObject});
       },
+      deleteMovie: (movieId) => (
+        db.ref('movies').child(movieId).remove()
+      ),
+
       addListener: (id, listener) => {
         //NOTE(adam): if listener already exists, don't do anything
         if(listeners.hasOwnProperty(id)) { return; }
