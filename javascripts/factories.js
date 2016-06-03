@@ -17,7 +17,6 @@ angular.module('app')
           .post(`${FB_URL}.json`, movieObject)
       },
       deleteMovie(movieId) {
-        console.log(movieId);
         return $http
           .delete(`${FB_URL}/${movieId}/.json`)
       },
