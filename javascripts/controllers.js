@@ -1,25 +1,24 @@
 angular.module("app")
 
-  .controller("ViewCtrl", function(firebaseFactory, $timeout) {
+  .controller("ViewCtrl", function(movieFactory, $timeout) {
     const view = this;
-    view.movies = firebaseFactory.getMovies();
+    view.movies = movieFactory.getMovies(); //NOTE(adam): speed improvement
 
-    //NOTE(adam): listener to update movies on view controller
-    firebaseFactory.setListener("view", data => {
+    movieFactory.setListener(data => {
       view.movies = data;
       $timeout();
     });
 
-    view.deleteMovie = id => firebaseFactory.deleteMovie(id);
-    view.setMovieWatched = (id) =>
-      firebaseFactory.setMovieWatched(id, view.movies[id].Watched);
+    view.deleteMovie = id => movieFactory.deleteMovie(id);
+    view.setMovieWatched = id =>
+      movieFactory.setMovieWatched(id, view.movies[id].Watched);
   })
 
-  .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {
+  .controller("AddCtrl", function(omdbFactory, movieFactory, $location) {
     const add = this;
     add.addMovie = () => {
       omdbFactory.getMovie(add.movieTitle)
-        .then(data => firebaseFactory.addMovie({
+        .then(data => movieFactory.addMovie({
           Title: data.Title,
           Year: data.Year,
           Actors: data.Actors.split(", "),

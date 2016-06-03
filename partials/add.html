@@ -1,19 +1,11 @@
 <div>
-	<a href="#/">View List</a>
-	<a href="#/add">Add Movie</a>
+  <a href="#/">View List</a>
+  <a href="#/add">Add Movie</a>
 </div>
 <div>
-	<form ng-submit='add.addMovie()'>
-		<label for="title">Movie Title</label>
-		<input type='text' id='title' ng-model='add.movieTitle' />
-		<!-- <label for="year">Release Year</label>
-		<input type='text' id='year' ng-model='' />
-		<label for="actors">Main Actors</label>
-		<input type='text' id='actors' ng-model='' />
-		<label for="rating">Rating</label>
-		<input type='text' id='rating' ng-model='' />
-		<label for="watched">Watched?</label>
-		<input type='checkbox' id='watched' ng-model='' /> -->
-		<input type="submit" name="">
-	</form>
+  <form ng-submit='add.addMovie()'>
+    <label for="title">Movie Title</label>
+    <input type='text' id='title' ng-model='add.movieTitle' autofocus>
+    <input type="submit">
+  </form>
 </div>

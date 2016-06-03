@@ -12,30 +12,36 @@ angular.module('app')
     }
   ))
 
-  .factory('firebaseFactory', () => {
-    const db = firebase.database();
-    const dbref = db.ref('movies');
+
+  .factory('movieFactory', (firebaseFactory) => {
     let movies = null;
 
     return {
       getMovies: () => movies,
-      addMovie: (movieObject) => {
-        //NOTE(adam): get key for new data and set data
-        const newKey = dbref.push().key;
-        dbref.update({ [newKey]: movieObject});
-      },
-      deleteMovie: (movieId) => (
-        dbref.child(movieId).remove()
-      ),
+      addMovie: movieObject => firebaseFactory.post(movieObject),
+      deleteMovie: movieId => firebaseFactory.delete(movieId),
       setMovieWatched: (movieId, movieWatched) =>
-        db.ref(`movies/${movieId}`).update({Watched: movieWatched}),
-      setListener: (id, listener) => {
+        firebaseFactory.patch(movieId, {Watched: movieWatched}),
+      setListener: listener =>
+        firebaseFactory.listen(data => listener(movies = data))
+    };
+  })
+
+
+  .factory('firebaseFactory', () => {
+    const db = firebase.database();
+    const dbref = db.ref('movies');
+
+    return {
+      get: id => db.ref(`movies/${id}`).once('value').then(snapshot => snapshot.val()),
+      getAll: () => dbref.once('value').then(snapshot => snapshot.val()),
+      delete: id => dbref.child(id).remove(),
+      post: data => dbref.update({ [dbref.push().key]: data}),
+      patch: (id, data) => db.ref(`movies/${id}`).update(data),
+      listen: listener => {
         dbref.off('value');
-        dbref.on('value', snapshot => {
-          //NOTE(adam): cache data and resolve listener
-          movies = snapshot.val();
-          listener(movies);
-        });
+        dbref.on('value', snapshot => listener(snapshot.val()));
       }
     };
   });
+

@@ -1,31 +1,35 @@
 <div>
-	<a href="#/">View List</a>
-	<a href="#/add">Add Movie</a>
+  <a href="#/">View List</a>
+  <a href="#/add">Add Movie</a>
 </div>
 <h1>Movie List</h1>
 <div>
-	<table>
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Year</th>
-				<th>Main Actors</th>
-				<th>Rating</th>
-				<th>Watched?</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="(key, movie) in view.movies">
-				<td>{{movie.Title}}</td> <!-- title -->
-				<td>{{movie.Year}}</td> <!-- year -->
-				<td><span ng-repeat="actor in movie.Actors">{{actor}}</span></td> <!-- main actors -->
-				<td>{{movie.Rating}}</td> <!-- rating -->
-	 			<td><input type="checkbox"
-	 				ng-model="movie.Watched"
-	 				ng-change="view.setMovieWatched(key)"
-	 				ng-checked="{{movie.Watched}}"></td> <!-- watched checkbox -->
-	 			<td><button type="submit" ng-click="view.deleteMovie(key)">Delete</button></td>
-			</tr>
-		</tbody>
-	</table>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Main Actors</th>
+        <th>Rating</th>
+        <th>Watched?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="(key, movie) in view.movies">
+        <td>{{movie.Title}}</td>
+        <td>{{movie.Year}}</td>
+        <td><span ng-repeat="actor in movie.Actors">{{actor}}</span></td>
+        <td>{{movie.Rating}}</td>
+        <td>
+          <input type="checkbox"
+            ng-model="movie.Watched"
+            ng-change="view.setMovieWatched(key)"
+            ng-checked="{{movie.Watched}}">
+        </td>
+        <td>
+          <button type="submit" ng-click="view.deleteMovie(key)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

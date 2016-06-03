@@ -1,0 +1,9 @@
+td span:not(:last-of-type)::after {
+  content: "\A";
+  white-space: pre;
+}
+
+/*td span {
+  display: block;
+}
+*/
