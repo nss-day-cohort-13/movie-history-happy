@@ -11,6 +11,8 @@ angular.module("app")
     });
 
     view.deleteMovie = id => firebaseFactory.deleteMovie(id);
+    view.setMovieWatched = (id) =>
+      firebaseFactory.setMovieWatched(id, view.movies[id].Watched);
   })
 
   .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {

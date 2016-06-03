@@ -15,12 +15,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat='(key, movie) in view.movies'>
+			<tr ng-repeat="(key, movie) in view.movies">
 				<td>{{movie.Title}}</td> <!-- title -->
 				<td>{{movie.Year}}</td> <!-- year -->
-				<td><span ng-repeat='actor in movie.Actors'>{{actor}}</span></td> <!-- main actors -->
+				<td><span ng-repeat="actor in movie.Actors">{{actor}}</span></td> <!-- main actors -->
 				<td>{{movie.Rating}}</td> <!-- rating -->
-	 			<td><input type="checkbox" name="" value="" ng-checked='{{movie.Watched}}'></td> <!-- watched checkbox -->
+	 			<td><input type="checkbox"
+	 				ng-model="movie.Watched"
+	 				ng-change="view.setMovieWatched(key)"
+	 				ng-checked="{{movie.Watched}}"></td> <!-- watched checkbox -->
 	 			<td><button type="submit" ng-click="view.deleteMovie(key)">Delete</button></td>
 			</tr>
 		</tbody>
