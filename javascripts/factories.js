@@ -32,13 +32,12 @@ angular.module('app')
         //NOTE(adam): if listener already exists, don't do anything
         if(listeners.hasOwnProperty(id)) { return; }
 
-        //NOTE(adam): attach new listener to changes
+        //NOTE(adam)kl: attach new listener to changes
         listeners[id] = listener;
-        db.ref('movies').on('value', snapshot => {
-          //NOTE(adam): cache current value
-          movies = snapshot.val();
-          listener(movies);
-        });
+        db.ref('movies').on('value', snapshot =>
+          //NOTE(adam): cache data and resolve listener
+          new Promise(res => res(movies = snapshot.val()))
+            .then(listener));
       }
     };
   });
