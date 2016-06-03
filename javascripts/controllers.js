@@ -1,7 +1,12 @@
 angular.module("app")
-  .controller("ViewCtrl", function(firebaseFactory) {
+  .controller("ViewCtrl", function(firebaseFactory, $location) {
     const view = this;
     firebaseFactory.getMovies().then(movies => view.movies = movies);
+    view.deleteMovie = id => {
+      firebaseFactory.deleteMovie(id)
+        .then(() => firebaseFactory.getMovies())
+        .then(movies => view.movies = movies)
+    };
   })
 
   .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {
