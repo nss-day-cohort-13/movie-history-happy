@@ -13,22 +13,22 @@ angular.module('app')
   ))
 
   .factory('firebaseFactory', () => {
-    const db = firebase.database();
+    const ref = firebase.database().ref('movies');
     let movies = null;
 
     return {
       getMovies: () => movies,
       addMovie: (movieObject) => {
         //NOTE(adam): get key for new data and set data
-        const newKey = db.ref('movies').push().key;
-        db.ref('movies').update({ [newKey]: movieObject});
+        const newKey = ref.push().key;
+        ref.update({ [newKey]: movieObject});
       },
       deleteMovie: (movieId) => (
-        db.ref('movies').child(movieId).remove()
+        ref.child(movieId).remove()
       ),
       setListener: (id, listener) => {
-        db.ref('movies').off('value');
-        db.ref('movies').on('value', snapshot => {
+        ref.off('value');
+        ref.on('value', snapshot => {
           //NOTE(adam): cache data and resolve listener
           movies = snapshot.val();
           listener(movies);
