@@ -1,7 +1,12 @@
 angular.module("app")
-  .controller("ViewCtrl", function(firebaseFactory) {
+  .controller("ViewCtrl", function(firebaseFactory, $scope) {
     const view = this;
-    firebaseFactory.getMovies().then(movies => view.movies = movies);
+    //TODO(adam): a listener on change should work
+    firebase.database().ref("movies").once("value")
+      .then(snapshot => {
+        view.movies = snapshot.val();
+        $scope.$apply();
+    });
   })
 
   .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {
