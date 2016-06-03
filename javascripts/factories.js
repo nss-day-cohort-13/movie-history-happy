@@ -14,7 +14,6 @@ angular.module('app')
 
   .factory('firebaseFactory', () => {
     const db = firebase.database();
-    const listeners = {};
     let movies = null;
 
     return {
@@ -27,17 +26,13 @@ angular.module('app')
       deleteMovie: (movieId) => (
         db.ref('movies').child(movieId).remove()
       ),
-
-      addListener: (id, listener) => {
-        //NOTE(adam): if listener already exists, don't do anything
-        if(listeners.hasOwnProperty(id)) { return; }
-
-        //NOTE(adam)kl: attach new listener to changes
-        listeners[id] = listener;
-        db.ref('movies').on('value', snapshot =>
+      setListener: (id, listener) => {
+        db.ref('movies').off('value');
+        db.ref('movies').on('value', snapshot => {
           //NOTE(adam): cache data and resolve listener
-          new Promise(res => res(movies = snapshot.val()))
-            .then(listener));
+          movies = snapshot.val();
+          listener(movies);
+        });
       }
     };
   });
