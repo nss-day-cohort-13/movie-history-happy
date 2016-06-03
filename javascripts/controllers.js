@@ -1,18 +1,16 @@
 angular.module("app")
 
-  .controller("ViewCtrl", function(firebaseFactory, $scope, $timeout) {
+  .controller("ViewCtrl", function(firebaseFactory, $timeout) {
     const view = this;
     view.movies = firebaseFactory.getMovies();
 
-    view.deleteMovie = id => {
-      firebaseFactory.deleteMovie(id)
-    };
-
     //NOTE(adam): listener to update movies on view controller
-    firebaseFactory.addListener("view", data => {
+    firebaseFactory.setListener("view", data => {
       view.movies = data;
-        $scope.$apply()
+      $timeout();
     });
+
+    view.deleteMovie = id => firebaseFactory.deleteMovie(id);
   })
 
   .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {
