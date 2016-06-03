@@ -1,8 +1,15 @@
 angular.module("app")
-  .controller("ViewCtrl", function(firebaseFactory) {
+  .controller("ViewCtrl", function(firebaseFactory, $scope) {
     const view = this;
-    firebaseFactory.getMovies().then(movies => view.movies = movies);
+    view.movies = firebaseFactory.getMovies();
+
+    //NOTE(adam): listener to update movies on view controller
+    firebaseFactory.addListener("view", data => {
+      view.movies = data;
+      $scope.$apply();
+    });
   })
+
 
   .controller("AddCtrl", function(omdbFactory, firebaseFactory, $location) {
     const add = this;
@@ -14,6 +21,6 @@ angular.module("app")
           Actors: data.Actors.split(", "),
           Rating: Math.round(data.imdbRating / 2),
           Watched: false
-        }).then(() => $location.path("/")));
+        })).then($location.path.bind($location, "/"));
     };
   });
