@@ -16,6 +16,10 @@ angular.module('app')
         return $http
           .post(`${FB_URL}.json`, movieObject)
       },
+      deleteMovie(movieId) {
+        return $http
+          .delete(`${FB_URL}/${movieId}/.json`)
+      },
       getMovies() {
         return $http
           .get(`${FB_URL}.json`)
